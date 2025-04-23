@@ -128,5 +128,15 @@ namespace ProgPOE_PART1
         }
     }
 }
+//*******************************************************************************************************************************************************//
+//End of Code//
+//References//
+//TypeWriter effect - https://www.youtube.com/watch?v=15i5ugOrXmY - BotAnswers class and line 43 to 74 in the HandleUserQuestions class
+//String methods - https://www.codecademy.com/resources/docs/c-sharp/strings/contains - Line 43 to 74 and 92 to 126 in Program.cs
+//ASCII Art - https://www.asciiart.eu/image-to-ascii#google_vignette - Line 27 to 67 in Program.cs
+//SoundPlayer - https://learn.microsoft.com/en-us/dotnet/api/system.media.soundplayer?view=dotnet-plat-ext-7.0 - Audio class and Line 10 to 21 in Prgram.cs
+//ChatGPT - https://chatgpt.com/c/68094316-f630-8001-9f5a-a4000365abe9 - What the bot says depending on certain questions
+//Github Copilot Chat
+//********************************************************************************************************************************************************//
 
 
