@@ -39,6 +39,8 @@ namespace ProgPOE_PART1
             // Set bot response color to green
             Console.ForegroundColor = ConsoleColor.Green;
 
+            //https://www.codecademy.com/resources/docs/c-sharp/strings/contains
+            //https://chatgpt.com/c/68094316-f630-8001-9f5a-a4000365abe9
             // Match different types of questions using simple keyword checking
             if (question.Contains("how are you"))
             {

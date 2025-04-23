@@ -11,6 +11,7 @@ namespace ProgPOE_PART1
     {
         public static void TypeText(string text, ConsoleColor color)
         {
+            //https://www.youtube.com/watch?v=15i5ugOrXmY
             // Set the text color in the console to the specified colour
             Console.ForegroundColor = color;
 

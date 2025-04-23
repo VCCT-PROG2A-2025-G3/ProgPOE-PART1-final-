@@ -6,7 +6,8 @@ namespace ProgPOE_PART1
     {
         static void Main(string[] args)
         {
-            // Define the path to the WAV file
+        // Define the path to the WAV file
+            //https://learn.microsoft.com/en-us/dotnet/api/system.media.soundplayer?view=dotnet-plat-ext-7.0
             string wavPath = @"C:\Users\paras\source\repos\ProgPart1\ProgPart1\Welcome.wav";
 
             // Check if the WAV file exists at the specified path
@@ -22,8 +23,9 @@ namespace ProgPOE_PART1
             }
 
             // Define a string variable to hold ASCII art (content not shown in this snippet)
+            //https://www.asciiart.eu/image-to-ascii#google_vignette
             string asciiArt = @"
-                
+               
           %%%%%%%%%%%%%%%%%%%%%%%%%%*+++*%%%%%%%%%%%%%%%%%%%%%%%%%%
           %%%%%%%%%%%%%%%%%%%%%%%*+++++++++*%%%%%%%%%%%%%%%%%%%%%%%
           %%%%%%%%%%%%%%%%%%%#++++++#%%%#++++++#%%%%%%%%%%%%%%%%%%%
@@ -138,5 +140,3 @@ namespace ProgPOE_PART1
 //ChatGPT - https://chatgpt.com/c/68094316-f630-8001-9f5a-a4000365abe9 - What the bot says depending on certain questions
 //Github Copilot Chat
 //********************************************************************************************************************************************************//
-
-
