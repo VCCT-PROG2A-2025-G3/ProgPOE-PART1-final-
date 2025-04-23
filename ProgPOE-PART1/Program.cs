@@ -69,6 +69,32 @@ namespace ProgPOE_PART1
             ";
             // Display the ASCII art on the console
             Console.WriteLine(asciiArt);
+
+            // Display the welcome message header
+            Console.WriteLine("===========================================");
+            Console.WriteLine("Welcome to the Cybersecurity Awareness Bot!");
+            Console.WriteLine("===========================================");
+
+            // Prompt the user to enter their name
+            Console.Write("Please enter your name: ");
+            string name = Console.ReadLine();
+
+            // Loop to ensure the name is not empty or just whitespace
+            while (string.IsNullOrWhiteSpace(name))
+            {
+                Console.ForegroundColor = ConsoleColor.Red;
+                Console.WriteLine("Name cannot be empty. Please enter your name:");
+                Console.ResetColor();
+                name = Console.ReadLine();
+            }
+
+            // Greet the user with their name in cyan text
+            Console.ForegroundColor = ConsoleColor.Cyan;
+            Console.WriteLine($"\nHey there {name}!!! I'm your Cybersecurity Awareness Assistant.");
+            Console.WriteLine($"Nice to meet you, {name}!\n");
+            Console.ResetColor();
+
+            
         }
     }
 }
