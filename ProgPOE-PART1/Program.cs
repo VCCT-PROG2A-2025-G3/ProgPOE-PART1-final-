@@ -94,7 +94,39 @@ namespace ProgPOE_PART1
             Console.WriteLine($"Nice to meet you, {name}!\n");
             Console.ResetColor();
 
-            
+            // Use the custom TypeText method to simulate typing the bot's greeting
+            Console.ForegroundColor = ConsoleColor.Green;
+            BotAnswers.TypeText("Let’s learn how to stay safe online!", ConsoleColor.Green);
+            Console.ResetColor();
+
+            // Instantiate a HandleUserQuestions object with an empty initial question and the user's name
+            HandleUserQuestions handler = new HandleUserQuestions("", name);
+
+            // Start an infinite loop to continuously receive and respond to user questions
+            while (true)
+            {
+                Console.Write("\n\n");
+
+                // Add spacing to align the user input to the right side
+                Console.Write("                                                                 ");
+                Console.Write("You: ");
+
+                // Read the user's question
+                string question = Console.ReadLine();
+
+                // Check if the user wants to exit the chat
+                if (string.Equals(question, "exit", StringComparison.OrdinalIgnoreCase))
+                {
+                    Console.WriteLine("\nGoodbye! Stay safe online!");
+                    break; // Exit the loop and end the program
+                }
+
+                // Update the handler with the new question and process it
+                handler = new HandleUserQuestions(question, name);
+                handler.ProcessQuestion();
+            }
         }
     }
 }
+
+
