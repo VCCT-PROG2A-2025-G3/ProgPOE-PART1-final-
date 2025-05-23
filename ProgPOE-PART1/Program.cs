@@ -98,7 +98,7 @@ namespace ProgPOE_PART1
 
             // Use the custom TypeText method to simulate typing the bot's greeting
             Console.ForegroundColor = ConsoleColor.Green;
-            BotAnswers.TypeText("Let’s learn how to stay safe online!", ConsoleColor.Green);
+            BotAnswers.TypeText("Let's learn how to stay safe online!", ConsoleColor.Green);
             Console.ResetColor();
 
             // Instantiate a HandleUserQuestions object with an empty initial question and the user's name
@@ -108,7 +108,6 @@ namespace ProgPOE_PART1
             while (true)
             {
                 Console.Write("\n\n");
-
                 // Add spacing to align the user input to the right side
                 Console.Write("                                                                 ");
                 Console.Write("You: ");

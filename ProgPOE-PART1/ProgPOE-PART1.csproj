@@ -48,6 +48,10 @@
     <Compile Include="HandleUserQuestions.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Response.cs" />
+    <Compile Include="SentimentAnalyzer.cs" />
+    <Compile Include="TopicFollowUpHandler.cs" />
+    <Compile Include="UserPreferenceManager.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
