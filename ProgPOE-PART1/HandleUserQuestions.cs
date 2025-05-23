@@ -8,40 +8,64 @@ namespace ProgPOE_PART1
 {
     class HandleUserQuestions
     {
-        // Private fields to store the user's question and name
         private string question;
         private string userName;
+        private static Random random = new Random(); // Shared random instance
 
-        // Constructor to initialize the question and username
+        // Predefined response banks
+        private List<string> phishingResponses = new List<string>
+    {
+        "Phishing is a scam where attackers trick you into giving up personal info. Never click suspicious links or attachments in emails.",
+        "Always double-check the sender's email address. If something feels off, don't click!",
+        "Beware of emails urging immediate action. They're often phishing attempts!",
+        "When in doubt, contact the sender through a known, official method before responding to emails with links or attachments."
+    };
+
+        private List<string> passwordResponses = new List<string>
+    {
+        "Always use strong, unique passwords. Include letters, numbers, and symbols.",
+        "Avoid reusing the same password on multiple sites.",
+        "Consider using a password manager to generate and store secure passwords.",
+        "Change your passwords regularly and never share them."
+    };
+        private List<string> safeBrowsingResponses = new List<string>
+{
+        "Always check for HTTPS in the browser URL to ensure the site is secure.",
+        "Avoid clicking on pop-ups or ads, especially on unfamiliar websites.",
+        "Keep your browser and antivirus software up to date for maximum protection.",
+        "Don't download files from untrusted or suspicious websites.",
+        "Use a secure and privacy-focused browser, and consider enabling private browsing mode."
+};
+
+        private List<string> privacyResponses = new List<string>
+    {
+        "Use strong, unique passwords and enable multifactor authentication.",
+        "Limit personal information shared on social media.",
+        "Be cautious when clicking links or downloading attachments.",
+        "Review app permissions and disable those that aren’t needed."
+    };
+
         public HandleUserQuestions(string question, string userName)
         {
             this.question = question;
             this.userName = userName;
         }
 
-        // Method to process the user's question and generate a response
         public void ProcessQuestion()
         {
-            // Add a blank line before the bot's response for better spacing
             Console.WriteLine();
 
-            // Check if the question is empty or just whitespace
             if (string.IsNullOrWhiteSpace(question))
             {
                 Console.ForegroundColor = ConsoleColor.Green;
                 BotAnswers.TypeText("It seems you didn't ask a question. Please ask a question so I can assist you.", ConsoleColor.Green);
                 Console.ResetColor();
-                return; // Exit the method early if no valid input
+                return;
             }
-            // Convert the question to lowercase and trim spaces for consistent matching
-            question = question.ToLower().Trim();
 
-            // Set bot response color to green
+            question = question.ToLower().Trim();
             Console.ForegroundColor = ConsoleColor.Green;
 
-            //https://www.codecademy.com/resources/docs/c-sharp/strings/contains
-            //https://chatgpt.com/c/68094316-f630-8001-9f5a-a4000365abe9
-            // Match different types of questions using simple keyword checking
             if (question.Contains("how are you"))
             {
                 BotAnswers.TypeText("I'm just a bot, but I'm fully operational and ready to help you stay safe online!", ConsoleColor.Green);
@@ -56,27 +80,38 @@ namespace ProgPOE_PART1
                 BotAnswers.TypeText("- Password safety", ConsoleColor.Green);
                 BotAnswers.TypeText("- Phishing scams", ConsoleColor.Green);
                 BotAnswers.TypeText("- Safe browsing habits", ConsoleColor.Green);
+                BotAnswers.TypeText("- Privacy", ConsoleColor.Green);
             }
             else if (question.Contains("password"))
             {
-                BotAnswers.TypeText("Always use strong, unique passwords. Include letters, numbers, and symbols. Avoid using the same password across sites.", ConsoleColor.Green);
+                BotAnswers.TypeText(GetRandomResponse(passwordResponses), ConsoleColor.Green);
             }
             else if (question.Contains("phish") || question.Contains("scam") || question.Contains("fraud"))
             {
-                BotAnswers.TypeText("Phishing is a scam where attackers trick you into giving up personal info. Never click suspicious links or attachments in emails.", ConsoleColor.Green);
+                BotAnswers.TypeText(GetRandomResponse(phishingResponses), ConsoleColor.Green);
             }
             else if (question.Contains("safe browsing") || question.Contains("surf") || question.Contains("browser safety"))
             {
-                BotAnswers.TypeText("Always check for HTTPS in the browser URL. Don't visit sketchy websites, and keep your browser and antivirus up to date.", ConsoleColor.Green);
+                BotAnswers.TypeText(GetRandomResponse(safeBrowsingResponses), ConsoleColor.Green);
+            }
+            else if (question.Contains("privacy") || question.Contains("private") || question.Contains("security"))
+            {
+                BotAnswers.TypeText(GetRandomResponse(privacyResponses), ConsoleColor.Green);
             }
             else
             {
-                // Default response for unrecognized input
                 BotAnswers.TypeText($"Sorry {userName}, I didn't quite understand that.", ConsoleColor.Green);
-                BotAnswers.TypeText("Could you please rephrase your question or ask about a specific topic like 'password safety', 'phishing', or 'safe browsing'?", ConsoleColor.Green);
+                BotAnswers.TypeText("Could you please rephrase your question or ask about a specific topic like 'password safety', 'phishing', 'safe browsing' or 'privacy'?", ConsoleColor.Green);
             }
-            // Reset console color to default
+
             Console.ResetColor();
+        }
+
+        // Helper method to select a random response
+        private string GetRandomResponse(List<string> responses)
+        {
+            int index = random.Next(responses.Count);
+            return responses[index];
         }
     }
 }
