@@ -19,6 +19,48 @@ namespace ProgPOE_PART1
         private static bool waitingForResponse = false; // Flag to track if we're waiting for yes/no
         private static string pendingTopic = ""; // Topic waiting for yes/no response
 
+        // Sentiment keywords
+        private Dictionary<string, List<string>> sentiments = new Dictionary<string, List<string>>
+    {
+        { "worried", new List<string> { "worried", "concerned", "afraid", "scared", "anxious", "nervous", "fear", "stress", "stressed" } },
+        { "curious", new List<string> { "curious", "interested", "want to learn", "tell me", "how do", "how can", "how does", "what is" } },
+        { "frustrated", new List<string> { "frustrated", "annoyed", "confused", "difficult", "hard", "complicated", "don't understand", "can't figure", "struggling" } },
+        { "overwhelmed", new List<string> { "overwhelmed", "too much", "complex", "complicated", "difficult", "challenging", "lost", "helpless" } }
+    };
+
+        // Empathetic responses based on sentiment
+        private Dictionary<string, List<string>> empatheticResponses = new Dictionary<string, List<string>>
+    {
+        { "worried", new List<string>
+            {
+                "It's completely understandable to feel worried. Cybersecurity can seem intimidating, but with a few simple habits, you can greatly reduce your risk.",
+                "I understand your concern. Many people feel the same way. Let me help you with some practical steps to stay safe.",
+                "Your concerns are valid. The digital world can be scary, but I'm here to help you navigate it safely."
+            }
+        },
+        { "curious", new List<string>
+            {
+                "I'm glad you're curious about this! Learning about cybersecurity is the first step to staying safe online.",
+                "That's a great question! I'm happy to share what I know about this topic.",
+                "Your curiosity will serve you well! Let me explain this in a way that's easy to understand."
+            }
+        },
+        { "frustrated", new List<string>
+            {
+                "I understand this can be frustrating. Let me try to explain it more clearly.",
+                "It's okay to feel frustrated. Cybersecurity can be complex, but we can break it down into simpler steps.",
+                "I hear your frustration. Let's take a step back and approach this differently."
+            }
+        },
+        { "overwhelmed", new List<string>
+            {
+                "It's normal to feel overwhelmed. Let's focus on just one simple step you can take today.",
+                "I understand this might seem like a lot. We can take it one small step at a time.",
+                "Many people feel overwhelmed by cybersecurity. Let's start with the basics and build from there."
+            }
+        }
+    };
+
         // Predefined response banks
         private List<string> phishingResponses = new List<string>
     {
@@ -138,7 +180,10 @@ namespace ProgPOE_PART1
                 return;
             }
 
-            // Process regular questions
+            // Detect sentiment in the user's question
+            string detectedSentiment = DetectSentiment(question);
+
+            // Process regular questions with sentiment awareness
             if (question.Contains("how are you"))
             {
                 BotAnswers.TypeText("I'm just a bot, but I'm fully operational and ready to help you stay safe online!", ConsoleColor.Green);
@@ -160,6 +205,12 @@ namespace ProgPOE_PART1
             }
             else if (question.Contains("password"))
             {
+                // Respond with empathy if sentiment is detected
+                if (!string.IsNullOrEmpty(detectedSentiment))
+                {
+                    BotAnswers.TypeText(GetRandomResponse(empatheticResponses[detectedSentiment]), ConsoleColor.Green);
+                }
+
                 BotAnswers.TypeText(GetRandomResponse(passwordResponses), ConsoleColor.Green);
                 lastTopic = "password";
 
@@ -172,6 +223,12 @@ namespace ProgPOE_PART1
             }
             else if (question.Contains("phish") || question.Contains("scam") || question.Contains("fraud"))
             {
+                // Respond with empathy if sentiment is detected
+                if (!string.IsNullOrEmpty(detectedSentiment))
+                {
+                    BotAnswers.TypeText(GetRandomResponse(empatheticResponses[detectedSentiment]), ConsoleColor.Green);
+                }
+
                 BotAnswers.TypeText(GetRandomResponse(phishingResponses), ConsoleColor.Green);
                 lastTopic = "phishing";
 
@@ -184,6 +241,12 @@ namespace ProgPOE_PART1
             }
             else if (question.Contains("safe browsing") || question.Contains("surf") || question.Contains("browser safety"))
             {
+                // Respond with empathy if sentiment is detected
+                if (!string.IsNullOrEmpty(detectedSentiment))
+                {
+                    BotAnswers.TypeText(GetRandomResponse(empatheticResponses[detectedSentiment]), ConsoleColor.Green);
+                }
+
                 BotAnswers.TypeText(GetRandomResponse(safeBrowsingResponses), ConsoleColor.Green);
                 lastTopic = "browsing";
 
@@ -196,6 +259,12 @@ namespace ProgPOE_PART1
             }
             else if (question.Contains("privacy") || question.Contains("private") || question.Contains("security"))
             {
+                // Respond with empathy if sentiment is detected
+                if (!string.IsNullOrEmpty(detectedSentiment))
+                {
+                    BotAnswers.TypeText(GetRandomResponse(empatheticResponses[detectedSentiment]), ConsoleColor.Green);
+                }
+
                 BotAnswers.TypeText(GetRandomResponse(privacyResponses), ConsoleColor.Green);
                 lastTopic = "privacy";
 
@@ -222,6 +291,13 @@ namespace ProgPOE_PART1
                     BotAnswers.TypeText($"We haven't discussed your specific interests yet, {userName}. Feel free to ask about password safety, phishing, safe browsing, or privacy!", ConsoleColor.Green);
                 }
             }
+            // Handle pure sentiment expressions without specific topics
+            else if (!string.IsNullOrEmpty(detectedSentiment) &&
+                    (question.Contains("feel") || question.Contains("am") || question.StartsWith("i'm") || question.StartsWith("im")))
+            {
+                BotAnswers.TypeText(GetRandomResponse(empatheticResponses[detectedSentiment]), ConsoleColor.Green);
+                BotAnswers.TypeText("Would you like to learn about a specific cybersecurity topic like passwords, phishing, safe browsing, or privacy?", ConsoleColor.Green);
+            }
             else
             {
                 BotAnswers.TypeText($"Sorry {userName}, I didn't quite understand that.", ConsoleColor.Green);
@@ -239,6 +315,22 @@ namespace ProgPOE_PART1
             return responses[index];
         }
 
+        // Detect sentiment in the user's question
+        private string DetectSentiment(string input)
+        {
+            foreach (var sentiment in sentiments)
+            {
+                foreach (var keyword in sentiment.Value)
+                {
+                    if (input.Contains(keyword))
+                    {
+                        return sentiment.Key;
+                    }
+                }
+            }
+
+            return ""; // No sentiment detected
+        }
         // Ask a personalized question based on user interests
         private void AskPersonalizedQuestion()
         {
