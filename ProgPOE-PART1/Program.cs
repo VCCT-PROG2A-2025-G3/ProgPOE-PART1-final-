@@ -138,4 +138,6 @@ namespace ProgPOE_PART1
 //SoundPlayer - https://learn.microsoft.com/en-us/dotnet/api/system.media.soundplayer?view=dotnet-plat-ext-7.0 - Audio class and Line 10 to 21 in Prgram.cs
 //ChatGPT - https://chatgpt.com/c/68094316-f630-8001-9f5a-a4000365abe9 - What the bot says depending on certain questions
 //Github Copilot Chat
+//Bot Response - https://wirefuture.com/post/complete-guide-to-chatbot-development-in-c-for-beginners - HandleUserQuestions.cs
+//Key Responses - https://www.programiz.com/csharp-programming/library/string/contains - HandleUserQuestion.cs
 //********************************************************************************************************************************************************//
