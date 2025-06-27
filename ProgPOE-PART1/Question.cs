@@ -8,12 +8,29 @@ namespace ProgPOE_PART1
 {
     class Question
     {
+        // The question text shown to the user
         public string Text { get; set; }
-        public string[] Options { get; set; } // For multiple choice
-        public int CorrectOptionIndex { get; set; } // Index of correct option in Options array
-        public string Explanation { get; set; }
-        public bool IsTrueFalse { get; set; } = false; // true if question is True/False
 
+        // The array of possible answer options (e.g., A, B, C, D)
+        public string[] Options { get; set; }
+
+        // The index of the correct answer within the Options array
+        public int CorrectOptionIndex { get; set; }
+
+        // Explanation text to show after the user answers (correct or incorrect)
+        public string Explanation { get; set; }
+
+        // Flag indicating if the question is a True/False type question
+        // True means options will likely be "True" and "False"
+        public bool IsTrueFalse { get; set; } = false;
+
+        // Constructor to initialize all properties of a Question instance
+        // Parameters:
+        //   text - The question prompt
+        //   options - The answer options array
+        //   correctIndex - The index of the correct option in the options array
+        //   explanation - Explanation shown after answer
+        //   isTrueFalse - Optional flag to mark as True/False question (default false)
         public Question(string text, string[] options, int correctIndex, string explanation, bool isTrueFalse = false)
         {
             Text = text;
@@ -23,4 +40,3 @@ namespace ProgPOE_PART1
             IsTrueFalse = isTrueFalse;
         }
     }
-}
